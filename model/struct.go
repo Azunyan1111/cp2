@@ -1,5 +1,7 @@
 package model
 
+import "github.com/garyburd/go-oauth/oauth"
+
 type User struct {
 	Id          int64
 	UserName    string
@@ -14,6 +16,13 @@ type Error struct {
 	Status int64 `json:"Status"`
 	Message string `json:"Message"`
 }
+type RequestJson struct {
+	Url string `json:"Url"`
+	QrCode string `json:"QrCode"`
+}
+
+
+var Credential *oauth.Credentials
 
 var TestUser = User{
 	Id:          1,
@@ -30,5 +39,5 @@ var DefaultUser = User{
 	UserImage:   "https://pbs.twimg.com/profile_images/748345537074651137/WnyzqKAU.jpg",
 	HomeImage:   "http://haginoryokkou.com/wp-content/uploads/2016/09/noimage.png",
 	MoodMessage: "",
-	MyPoint:     1000,
+	MyPoint:     10000,
 }

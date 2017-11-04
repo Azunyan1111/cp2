@@ -20,9 +20,6 @@ type Authentication struct {
 
 func RequestTokenHD() echo.HandlerFunc {
 	return func(c echo.Context) error { //c をいじって Request, Responseを色々する
-		// set keys
-		anaconda.SetConsumerKey(os.Getenv("CONSUMER_KEY"))
-		anaconda.SetConsumerSecret(os.Getenv("CONSUMER_SECRET"))
 
 		//リクエストしてユーザーを飛ばすURLとか貰う
 		url, tmpCred, err := anaconda.AuthorizationURL(os.Getenv("URL") + "access_token")
@@ -67,12 +64,14 @@ func AccessTokenHD() echo.HandlerFunc {
 
 		if model.IsUserExistByTwitter(response.Id){
 			// TODO:既存
-			return c.String(http.StatusOK, "ようこそ！")
+			return c.HTML(http.StatusOK, "君は前からいるフレンズなんだね！<br>" +
+				"<a href='/'>トップに戻る</a>")
 		}else{
 			// TODO:新規
 			model.InsertNewUserByTwitter(response.Id)
-			return c.String(http.StatusOK, "プロフィールを登録しよう！")
-
+			return c.HTML(http.StatusOK, "君は新しいフレンズなんだね！<br>" +
+				"勝手に登録下いたよ！<br>" +
+					"<a href='/'>トップに戻る</a>")
 		}
 	}
 }
