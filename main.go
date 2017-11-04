@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/Azunyan1111/cp/contoroller"
 	"github.com/Azunyan1111/cp/model"
-	"github.com/ChimeraCoder/anaconda"
+	"github.com/Azunyan1111/anaconda"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"os"
