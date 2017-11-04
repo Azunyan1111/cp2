@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Azunyan1111/cp/contoroller"
-	"github.com/Azunyan1111/cp/model"
+	"github.com/Azunyan1111/cp2/contoroller"
+	"github.com/Azunyan1111/cp2/model"
 	"github.com/Azunyan1111/anaconda"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"

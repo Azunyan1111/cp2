@@ -1,7 +1,7 @@
 package contoroller
 
 import (
-	"github.com/Azunyan1111/cp/model"
+	"github.com/Azunyan1111/cp2/model"
 	"github.com/labstack/echo"
 	"net/http"
 	"net/url"

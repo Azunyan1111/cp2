@@ -1,7 +1,7 @@
 package contoroller
 
 import (
-	"github.com/Azunyan1111/cp/model"
+	"github.com/Azunyan1111/cp2/model"
 	"github.com/Azunyan1111/anaconda"
 	"github.com/garyburd/go-oauth/oauth"
 	"github.com/labstack/echo"
