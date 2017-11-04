@@ -4,9 +4,7 @@
 	"GodepVersion": "v79",
 	"Deps": [
 		{
-			"ImportPath": "github.com/ChimeraCoder/anaconda",
-			"Comment": "v1.0.0-17-g63ac044",
-			"Rev": "63ac04497fe5e76a698c595abf57578b5db5140c"
+			"ImportPath": "github.com/Azunyan1111/anaconda"
 		},
 		{
 			"ImportPath": "github.com/ChimeraCoder/tokenbucket",
