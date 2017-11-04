@@ -70,7 +70,7 @@ func SelectUserPointByTwitter(id int64) (int64, error) {
 	return myPoint, nil
 }
 
-func UpdatePointAddByTwitter(id int64, cp int64) error {
+func UpdatePointAddById(id string, cp int64) error {
 	_, err := MyDB.Exec("update users set myPoint = myPoint + ? where id = ?;", cp, id)
 	if err != nil {
 		return err

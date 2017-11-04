@@ -67,7 +67,7 @@ func PaymentHD() echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, model.Error{Status: http.StatusInternalServerError, Message: "Please retry. Error can not sub request user."})
 		}
 		// 相手のポイントを増やす
-		if err := model.UpdatePointAddByTwitter(response.Id, intCp); err != nil {
+		if err := model.UpdatePointAddById(id, intCp); err != nil {
 			log.Println(err)
 			return c.JSON(http.StatusInternalServerError, model.Error{Status: http.StatusInternalServerError, Message: "Please retry. Error can not add."})
 		}
