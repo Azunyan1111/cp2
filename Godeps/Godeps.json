@@ -7,10 +7,6 @@
 			"ImportPath": "github.com/Azunyan1111/anaconda"
 		},
 		{
-			"ImportPath": "github.com/ChimeraCoder/tokenbucket",
-			"Rev": "c5a927568de7aad8a58127d80bcd36ca4e71e454"
-		},
-		{
 			"ImportPath": "github.com/azr/backoff",
 			"Rev": "53511d3c733003985b0b76f733df1f4d0095ee6a"
 		},
