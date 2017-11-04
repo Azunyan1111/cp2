@@ -7,11 +7,16 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"strconv"
 	"github.com/Azunyan1111/cp/model"
 )
 
 var credential *oauth.Credentials
+
+type Authentication struct {
+	Token   string `json:"token"`
+	Secret string `json:"secret"`
+}
+
 
 func RequestTokenHD() echo.HandlerFunc {
 	return func(c echo.Context) error { //c をいじって Request, Responseを色々する
@@ -41,6 +46,17 @@ func AccessTokenHD() echo.HandlerFunc {
 			return err
 		}
 
+		// クッキーに貼り付ける
+		c.SetCookie(&http.Cookie{
+			Name:  "Token",      // ここにcookieの名前を記述
+			Value: tokens.Token, // ここにcookieの値を記述
+		})
+		c.SetCookie(&http.Cookie{
+			Name:  "Secret",      // ここにcookieの名前を記述
+			Value: tokens.Secret, // ここにcookieの値を記述
+		})
+
+
 		// uuidを貰い受ける
 		api := anaconda.NewTwitterApi(tokens.Token, tokens.Secret)
 		response, err := api.GetSelf(url.Values{})
@@ -48,13 +64,15 @@ func AccessTokenHD() echo.HandlerFunc {
 			//帰ってきたエラーメッセージがそのまま出力されるよ！
 			return err
 		}
-		// TODO:ここでログイン処理＆サインアップ処理
-		if response.Id == model.TestUser.TwitterId{
-			return c.String(http.StatusOK, "Hello " + model.TestUser.Name)
-		}else{
-			return c.String(http.StatusOK, "プロフィールを登録しよう！")
-		}
 
-		return c.String(http.StatusOK, "Your Twitter ID is "+strconv.FormatInt(response.Id, 10))
+		if model.IsUserExistByTwitter(response.Id){
+			// TODO:既存
+			return c.String(http.StatusOK, "ようこそ！")
+		}else{
+			// TODO:新規
+			model.InsertNewUserByTwitter(response.Id)
+			return c.String(http.StatusOK, "プロフィールを登録しよう！")
+
+		}
 	}
 }

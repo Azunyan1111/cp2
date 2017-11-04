@@ -1,15 +1,19 @@
 package main
 
 import (
-	"github.com/Azunyan1111/cp/contoroller"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"os"
+	"github.com/Azunyan1111/cp/model"
+	"github.com/Azunyan1111/cp/contoroller"
 )
 
 func main() {
 	// Echoのインスタンス作る
 	e := echo.New()
+
+	// データベース接続
+	model.DataBaseInit()
 
 	// 全てのリクエストで差し込みたいミドルウェア（ログとか）はここ
 	e.Use(middleware.Logger())
