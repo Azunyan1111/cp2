@@ -16,11 +16,12 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// ルーティング
-	e.GET("/", model.HelloWorldHD())            // Hello World と表示するだけのチエック用
-	e.GET("/login", model.LoginHD())            // ログイン兼サインアップ（ＰＯＳＴ）
-	e.GET("/user/:userId", model.UserHD())      // プロフィール取（ＧＥＴ）・プロフィール更新（ＰＵＴ）
-	e.GET("/request", model.RequestHD())        // ポイント請求ＵＲＬ＆ＱＲコード生成（ＰＯＳＴ）
-	e.GET("/payment/:param", model.PaymentHD()) // ポイント支払い
+	e.GET("/", model.HelloWorldHD())            	// Hello World と表示するだけのチエック用
+	e.GET("/login", model.LoginHD())            	// ログイン兼サインアップ（ＰＯＳＴ）
+	e.GET("/user/:userId", model.GetUserHD())    	// プロフィール取（ＧＥＴ）・プロフィール更新（ＰＵＴ）
+	e.PUT("/user/:userId", model.SetUserHD())    // プロフィール取（ＧＥＴ）・プロフィール更新（ＰＵＴ）
+	e.GET("/request", model.RequestHD())        	// ポイント請求ＵＲＬ＆ＱＲコード生成（ＰＯＳＴ）
+	e.GET("/payment/:param", model.PaymentHD()) 	// ポイント支払い
 
 	// サーバー起動
 	e.Start(":" + os.Getenv("PORT")) //ポート番号指定してね

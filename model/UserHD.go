@@ -5,8 +5,14 @@ import (
 	"net/http"
 )
 
-func UserHD() echo.HandlerFunc {
+func GetUserHD() echo.HandlerFunc {
 	return func(c echo.Context) error { //c をいじって Request, Responseを色々する
-		return c.String(http.StatusOK, "Hello World")
+		return c.String(http.StatusOK, "You name is " + c.Param("userId"))
+	}
+}
+
+func SetUserHD() echo.HandlerFunc {
+	return func(c echo.Context) error { //c をいじって Request, Responseを色々する
+		return c.String(http.StatusOK, "You name is " + c.Param("userId"))
 	}
 }
