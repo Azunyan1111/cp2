@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"strconv"
+	"github.com/Azunyan1111/cp/model"
 )
 
 var credential *oauth.Credentials
@@ -48,6 +49,11 @@ func AccessTokenHD() echo.HandlerFunc {
 			return err
 		}
 		// TODO:ここでログイン処理＆サインアップ処理
+		if response.Id == model.TestUser.TwitterId{
+			return c.String(http.StatusOK, "Hello " + model.TestUser.Name)
+		}else{
+			return c.String(http.StatusOK, "プロフィールを登録しよう！")
+		}
 
 		return c.String(http.StatusOK, "Your Twitter ID is "+strconv.FormatInt(response.Id, 10))
 	}
