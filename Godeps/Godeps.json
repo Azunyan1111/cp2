@@ -4,7 +4,13 @@
 	"GodepVersion": "v79",
 	"Deps": [
 		{
-			"ImportPath": "github.com/Azunyan1111/anaconda"
+			"ImportPath": "github.com/ChimeraCoder/anaconda",
+			"Comment": "v1.0.0-17-g63ac044",
+			"Rev": "63ac04497fe5e76a698c595abf57578b5db5140c"
+		},
+		{
+			"ImportPath": "github.com/ChimeraCoder/tokenbucket",
+			"Rev": "c5a927568de7aad8a58127d80bcd36ca4e71e454"
 		},
 		{
 			"ImportPath": "github.com/azr/backoff",
@@ -25,7 +31,7 @@
 		},
 		{
 			"ImportPath": "github.com/garyburd/go-oauth/oauth",
-			"Rev": "4cff9ef7b7003713efa191899dbaab8fa75e3e73"
+			"Rev": "166ce8d672783fbb5a72247c3cf459267717e1ec"
 		},
 		{
 			"ImportPath": "github.com/go-sql-driver/mysql",
