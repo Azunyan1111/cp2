@@ -4,15 +4,15 @@ import (
 	"github.com/labstack/echo"
 	"net/http"
 	"github.com/Azunyan1111/cp/model"
-	"strconv"
 )
 
 func GetUserHD() echo.HandlerFunc {
 	return func(c echo.Context) error { //c をいじって Request, Responseを色々する
-		if c.Param("userId") == strconv.FormatInt(model.TestUser.Id,10){
-			return c.String(http.StatusOK, "You name is " + model.TestUser.UserName)
+		userData, err := model.SelectUserDataById(c.Param("userId"))
+		if err != nil{
+			return c.JSON(http.StatusBadRequest, model.Error{Status:http.StatusBadRequest, Message:err.Error()})//Message:"Not found user"})
 		}else{
-			return c.String(http.StatusBadRequest, c.Param("userId") + " is not found user.")
+			return c.JSON(http.StatusOK, userData)
 		}
 	}
 }

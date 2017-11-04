@@ -23,7 +23,7 @@ func main() {
 	e.GET("/", contoroller.HelloWorldHD()) // Hello World と表示するだけのチエック用
 	//  ユーザー
 	e.GET("/login", contoroller.LoginHD())          // ログイン兼サインアップ（ＰＯＳＴ）
-	e.GET("/user/:userId", contoroller.GetUserHD()) // プロフィール取（ＧＥＴ）
+	e.GET("/user/:userId", contoroller.GetUserHD()) // プロフィール取得（ＧＥＴ）
 	e.PUT("/user/:userId", contoroller.SetUserHD()) // プロフィール更新（ＰＵＴ）
 	// ポイント
 	e.GET("/request", contoroller.RequestHD())        // ポイント請求ＵＲＬ＆ＱＲコード生成（ＰＯＳＴ）

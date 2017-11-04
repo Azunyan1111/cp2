@@ -39,3 +39,13 @@ func IsUserExistByTwitter(twitterId int64)(bool){
 	}
 }
 
+func SelectUserDataById(id string)(User, error){
+	var userData User
+	if err := MyDB.QueryRow("select id, userName, userImage, homeImage, moodMessage, " +
+		"myPoint from users where id = ?;", id).Scan(&userData.Id, &userData.UserName,
+			&userData.UserImage, &userData.HomeImage, &userData.MoodMessage, &userData.MyPoint); err != nil {
+				return User{}, err
+	}
+	return userData, nil
+}
+

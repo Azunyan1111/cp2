@@ -10,6 +10,11 @@ type User struct {
 	MyPoint     int64
 }
 
+type Error struct {
+	Status int64 `json:"Status"`
+	Message string `json:"Message"`
+}
+
 var TestUser = User{
 	Id:          1,
 	UserName:    "中野 梓",
