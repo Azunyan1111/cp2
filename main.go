@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Azunyan1111/cp/model"
+	"github.com/Azunyan1111/cp/contoroller"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"os"
@@ -16,18 +16,18 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// ルーティング
-	e.GET("/", model.HelloWorldHD())            	// Hello World と表示するだけのチエック用
+	e.GET("/", contoroller.HelloWorldHD()) // Hello World と表示するだけのチエック用
 	//  ユーザー
-	e.GET("/login", model.LoginHD())            	// ログイン兼サインアップ（ＰＯＳＴ）
-	e.GET("/user/:userId", model.GetUserHD())    	// プロフィール取（ＧＥＴ）
-	e.PUT("/user/:userId", model.SetUserHD())    // プロフィール更新（ＰＵＴ）
+	e.GET("/login", contoroller.LoginHD())          // ログイン兼サインアップ（ＰＯＳＴ）
+	e.GET("/user/:userId", contoroller.GetUserHD()) // プロフィール取（ＧＥＴ）
+	e.PUT("/user/:userId", contoroller.SetUserHD()) // プロフィール更新（ＰＵＴ）
 	// ポイント
-	e.GET("/request", model.RequestHD())        	// ポイント請求ＵＲＬ＆ＱＲコード生成（ＰＯＳＴ）
-	e.GET("/payment/:param", model.PaymentHD()) 	// ポイント支払い
+	e.GET("/request", contoroller.RequestHD())        // ポイント請求ＵＲＬ＆ＱＲコード生成（ＰＯＳＴ）
+	e.GET("/payment/:param", contoroller.PaymentHD()) // ポイント支払い
 
 	// ツイッターログイン
-	e.GET("/request_token", model.RequestTokenHD()) //apiを利用する時に使うリクエスト
-	e.GET("/access_token", model.AccessTokenHD())   //apiを利用する時に使うアクストークン
+	e.GET("/request_token", contoroller.RequestTokenHD()) //apiを利用する時に使うリクエスト
+	e.GET("/access_token", contoroller.AccessTokenHD())   //apiを利用する時に使うアクストークン
 
 	// サーバー起動
 	e.Start(":" + os.Getenv("PORT")) //ポート番号指定してね

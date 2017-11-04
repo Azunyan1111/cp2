@@ -1,4 +1,4 @@
-package model
+package contoroller
 
 import (
 	"github.com/labstack/echo"
@@ -7,6 +7,6 @@ import (
 
 func PaymentHD() echo.HandlerFunc {
 	return func(c echo.Context) error { //c をいじって Request, Responseを色々する
-		return c.String(http.StatusOK, "Payment Param is " + c.Param("param"))
+		return c.String(http.StatusOK, "Payment Param is "+c.Param("param"))
 	}
 }

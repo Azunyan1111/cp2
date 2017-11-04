@@ -1,14 +1,15 @@
-package model
+package contoroller
 
 import (
-	"github.com/labstack/echo"
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/garyburd/go-oauth/oauth"
+	"github.com/labstack/echo"
 	"net/http"
-	"os"
 	"net/url"
+	"os"
 	"strconv"
 )
+
 var credential *oauth.Credentials
 
 func RequestTokenHD() echo.HandlerFunc {
@@ -18,7 +19,7 @@ func RequestTokenHD() echo.HandlerFunc {
 		anaconda.SetConsumerSecret(os.Getenv("CONSUMER_SECRET"))
 
 		//リクエストしてユーザーを飛ばすURLとか貰う
-		url, tmpCred, err := anaconda.AuthorizationURL(os.Getenv("URL")+ "access_token")
+		url, tmpCred, err := anaconda.AuthorizationURL(os.Getenv("URL") + "access_token")
 		if err != nil {
 			return err
 		}
@@ -48,6 +49,6 @@ func AccessTokenHD() echo.HandlerFunc {
 		}
 		// TODO:ここでログイン処理＆サインアップ処理
 
-		return c.String(http.StatusOK, "Your Twitter ID is " + strconv.FormatInt(response.Id,10))
+		return c.String(http.StatusOK, "Your Twitter ID is "+strconv.FormatInt(response.Id, 10))
 	}
 }
