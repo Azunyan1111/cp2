@@ -1,22 +1,21 @@
 package contoroller
 
 import (
+	"github.com/Azunyan1111/cp/model"
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/garyburd/go-oauth/oauth"
 	"github.com/labstack/echo"
 	"net/http"
 	"net/url"
 	"os"
-	"github.com/Azunyan1111/cp/model"
 )
 
 var credential *oauth.Credentials
 
 type Authentication struct {
-	Token   string `json:"token"`
+	Token  string `json:"token"`
 	Secret string `json:"secret"`
 }
-
 
 func RequestTokenHD() echo.HandlerFunc {
 	return func(c echo.Context) error { //c をいじって Request, Responseを色々する
@@ -53,7 +52,6 @@ func AccessTokenHD() echo.HandlerFunc {
 			Value: tokens.Secret, // ここにcookieの値を記述
 		})
 
-
 		// uuidを貰い受ける
 		api := anaconda.NewTwitterApi(tokens.Token, tokens.Secret)
 		response, err := api.GetSelf(url.Values{})
@@ -62,16 +60,16 @@ func AccessTokenHD() echo.HandlerFunc {
 			return err
 		}
 
-		if model.IsUserExistByTwitter(response.Id){
+		if model.IsUserExistByTwitter(response.Id) {
 			// TODO:既存
-			return c.HTML(http.StatusOK, "君は前からいるフレンズなんだね！<br>" +
+			return c.HTML(http.StatusOK, "君は前からいるフレンズなんだね！<br>"+
 				"<a href='/'>トップに戻る</a>")
-		}else{
+		} else {
 			// TODO:新規
 			model.InsertNewUserByTwitter(response.Id)
-			return c.HTML(http.StatusOK, "君は新しいフレンズなんだね！<br>" +
-				"勝手に登録下いたよ！<br>" +
-					"<a href='/'>トップに戻る</a>")
+			return c.HTML(http.StatusOK, "君は新しいフレンズなんだね！<br>"+
+				"勝手に登録下いたよ！<br>"+
+				"<a href='/'>トップに戻る</a>")
 		}
 	}
 }

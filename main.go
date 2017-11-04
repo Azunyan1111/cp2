@@ -1,12 +1,12 @@
 package main
 
 import (
+	"github.com/Azunyan1111/cp/contoroller"
+	"github.com/Azunyan1111/cp/model"
+	"github.com/ChimeraCoder/anaconda"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"os"
-	"github.com/Azunyan1111/cp/model"
-	"github.com/Azunyan1111/cp/contoroller"
-	"github.com/ChimeraCoder/anaconda"
 )
 
 func main() {
@@ -24,15 +24,15 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// ルーティング
-	e.GET("/", contoroller.MainPage()) // メインページ。なんでも動作確認できる。
+	e.GET("/", contoroller.MainPage())    // メインページ。なんでも動作確認できる。
 	e.GET("/all", contoroller.DataBase()) // メインページ。なんでも動作確認できる。
 	//  ユーザー
 	e.GET("/login", contoroller.LoginHD())          // ログイン兼サインアップのHTML
 	e.GET("/user/:userId", contoroller.GetUserHD()) // プロフィール取得（ＧＥＴ）
 	e.PUT("/user/:userId", contoroller.SetUserHD()) // プロフィール更新（ＰＵＴ）
 	// ポイント
-	e.GET("/request", contoroller.RequestHD())        // ポイント請求ＵＲＬ＆ＱＲコード生成（ＰＯＳＴ）
-	e.GET("/payment", contoroller.PaymentHD()) 		// ポイント支払い
+	e.GET("/request", contoroller.RequestHD()) // ポイント請求ＵＲＬ＆ＱＲコード生成（ＰＯＳＴ）
+	e.GET("/payment", contoroller.PaymentHD()) // ポイント支払い
 
 	// ツイッターログイン
 	e.GET("/request_token", contoroller.RequestTokenHD()) //apiを利用する時に使うリクエスト（TwitterログインのURL）

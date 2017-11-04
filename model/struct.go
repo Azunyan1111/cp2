@@ -13,14 +13,13 @@ type User struct {
 }
 
 type Error struct {
-	Status int64 `json:"Status"`
+	Status  int64  `json:"Status"`
 	Message string `json:"Message"`
 }
 type RequestJson struct {
-	Url string `json:"Url"`
+	Url    string `json:"Url"`
 	QrCode string `json:"QrCode"`
 }
-
 
 var Credential *oauth.Credentials
 
