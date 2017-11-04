@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/Azunyan1111/cp",
+	"ImportPath": "github.com/Azunyan1111/cp2",
 	"GoVersion": "go1.9",
 	"GodepVersion": "v79",
 	"Deps": [
@@ -7,6 +7,14 @@
 			"ImportPath": "github.com/Azunyan1111/anaconda",
 			"Comment": "v1.0.0-19-g0ac2fdb",
 			"Rev": "0ac2fdbc87a3c3322238259643c1dd8b33c5b227"
+		},
+		{
+			"ImportPath": "github.com/Azunyan1111/cp/contoroller",
+			"Rev": "29aa963273996fa023b0f7c1d849b6685d120d8f"
+		},
+		{
+			"ImportPath": "github.com/Azunyan1111/cp/model",
+			"Rev": "29aa963273996fa023b0f7c1d849b6685d120d8f"
 		},
 		{
 			"ImportPath": "github.com/Azunyan1111/tokenbucket",
