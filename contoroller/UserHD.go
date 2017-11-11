@@ -8,6 +8,7 @@ import (
 
 func GetUserHD() echo.HandlerFunc {
 	return func(c echo.Context) error { //c をいじって Request, Responseを色々する
+		c.Response().Header().Set(echo.HeaderAccessControlAllowOrigin, "*")
 		userData, err := model.SelectUserDataById(c.Param("userId"))
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, model.Error{Status: http.StatusBadRequest, Message: err.Error()}) //Message:"Not found user"})
