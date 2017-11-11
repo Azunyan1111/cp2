@@ -13,7 +13,7 @@ func MainPage() echo.HandlerFunc {
 			"<a href='/login'>login</a><br>"+
 			"<a href='/user/31'>ユーザー31のユーザープロフィール</a><br>"+
 			"<a href='/request?cp=100&id=31'>ユーザー31が100CP請求する</a><br>"+
-			"<a href='/payment?cp=100&id=41'>ユーザー41にログインしているユーザーが100CP送る</a><br>"+
+			"<a href='/payment?rqid=41&rqcp=100&myid=31'>ユーザー41にログインしているユーザーが100CP送る</a><br>"+
 			"<a href='/all'>全てのユーザーデータ</a>")
 	}
 }

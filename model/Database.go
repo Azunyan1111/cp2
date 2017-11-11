@@ -70,6 +70,15 @@ func SelectUserPointByTwitter(id int64) (int64, error) {
 	return myPoint, nil
 }
 
+
+func SelectUserPointById(id string) (int64, error) {
+	var myPoint int64
+	if err := MyDB.QueryRow("select myPoint from users where id = ?;", id).Scan(&myPoint); err != nil {
+		return myPoint, err
+	}
+	return myPoint, nil
+}
+
 func UpdatePointAddById(id string, cp int64) error {
 	_, err := MyDB.Exec("update users set myPoint = myPoint + ? where id = ?;", cp, id)
 	if err != nil {
@@ -80,6 +89,14 @@ func UpdatePointAddById(id string, cp int64) error {
 
 func UpdatePointSubByTwitter(twitterId int64, cp int64) error {
 	_, err := MyDB.Exec("update users set myPoint = myPoint - ? where twitterId = ?;", cp, twitterId)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdatePointSubById(id string, cp int64) error {
+	_, err := MyDB.Exec("update users set myPoint = myPoint - ? where id = ?;", cp, id)
 	if err != nil {
 		return err
 	}
