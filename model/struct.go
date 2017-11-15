@@ -21,6 +21,12 @@ type RequestJson struct {
 	QrCode string `json:"QrCode"`
 }
 
+type TwitterResponse struct {
+	Token string
+	Secret string
+	Message string
+}
+
 var Credential *oauth.Credentials
 
 var TestUser = User{

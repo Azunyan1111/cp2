@@ -59,17 +59,22 @@ func AccessTokenHD() echo.HandlerFunc {
 			//帰ってきたエラーメッセージがそのまま出力されるよ！
 			return err
 		}
-
+		var res = model.TwitterResponse{}
 		if model.IsUserExistByTwitter(response.Id) {
 			// TODO:既存
-			return c.HTML(http.StatusOK, "君は前からいるフレンズなんだね！<br>"+
-				"<a href='/'>トップに戻る</a>")
+			//return c.HTML(http.StatusOK, "君は前からいるフレンズなんだね！<br>"+
+			//	"<a href='/'>トップに戻る</a>")
+			res.Message = "君は前からいるフレンズなんだね！"
 		} else {
 			// TODO:新規
 			model.InsertNewUserByTwitter(response.Id)
-			return c.HTML(http.StatusOK, "君は新しいフレンズなんだね！<br>"+
-				"勝手に登録下いたよ！<br>"+
-				"<a href='/'>トップに戻る</a>")
+			//return c.HTML(http.StatusOK, "君は新しいフレンズなんだね！<br>"+
+			//	"勝手に登録下いたよ！<br>"+
+			//	"<a href='/'>トップに戻る</a>")
+			res.Message = "君は新しいフレンズなんだね！"
 		}
+		res.Token = tokens.Token
+		res.Secret = tokens.Secret
+		return c.JSON(http.StatusOK, res)
 	}
 }
