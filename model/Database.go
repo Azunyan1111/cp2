@@ -53,6 +53,9 @@ func IsUserExistById(Id string) bool {
 }
 
 func SelectUserDataById(id string) (User, error) {
+	if err := UpdateUserDataPoint(id);err != nil{
+		return User{},err
+	}
 	var userData User
 	if err := MyDB.QueryRow("select id, userName, userImage, homeImage, moodMessage, "+
 		"myPoint from users where id = ?;", id).Scan(&userData.Id, &userData.UserName,
@@ -78,9 +81,24 @@ func SelectUserPointById(id string) (int64, error) {
 	}
 	return myPoint, nil
 }
-
 func UpdatePointAddById(id string, cp int64) error {
-	_, err := MyDB.Exec("update users set myPoint = myPoint + ? where id = ?;", cp, id)
+	_, err := MyDB.Exec("INSERT INTO `points` (`userid`, `myPoint`) VALUES (?, ?);", cp, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateUserDataPoint(id string)error{
+	points, err := SelectUserPointsById(id)
+	if err != nil{
+		return err
+	}
+	var point int64
+	for _,i := range points{
+		point += i
+	}
+	_, err = MyDB.Exec("update users set myPoint = ? where id = ?;", point, id)
 	if err != nil {
 		return err
 	}
