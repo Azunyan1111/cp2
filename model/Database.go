@@ -167,7 +167,7 @@ func SelectUserPointsById(id string) ([]Point, error) {
 	return myPoints, nil
 }
 func SelectUserPointsByIdForInt64(id string) (int64, error) {
-	row, err := MyDB.Query("SELECT myPoint,datas data FROM points ORDER BY ? DESC LIMIT 10;", id)
+	row, err := MyDB.Query("SELECT myPoint,datas FROM points ORDER BY ? DESC LIMIT 10;", id)
 	if err != nil{
 		return 0, err
 	}
