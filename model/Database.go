@@ -61,7 +61,8 @@ func IsUserExistById(Id string) bool {
 }
 
 func SelectUserDataById(id string) (User, error) {
-	if err := UpdateUserDataPoint(id);err != nil{
+	point, err := SelectUserPointsByIdForInt64(id)
+	if err != nil{
 		return User{},err
 	}
 	var userData User
@@ -70,6 +71,7 @@ func SelectUserDataById(id string) (User, error) {
 		&userData.UserImage, &userData.HomeImage, &userData.MoodMessage, &userData.MyPoint); err != nil {
 		return User{}, err
 	}
+	userData.MyPoint = point
 	return userData, nil
 }
 func SelectUserDataByTwitter(id int64) (User, error) {
@@ -158,11 +160,26 @@ func SelectUserPointsById(id string) ([]Point, error) {
 	for row.Next(){
 		var myPoint Point
 		if err := row.Scan(&myPoint.Point,&myPoint.Time); err != nil{
-
+			return myPoints,err
 		}
 		myPoints = append(myPoints, myPoint)
 	}
 	return myPoints, nil
+}
+func SelectUserPointsByIdForInt64(id string) (int64, error) {
+	row, err := MyDB.Query("SELECT myPoint,datas data FROM points ORDER BY ? DESC LIMIT 10;", id)
+	if err != nil{
+		return 0, err
+	}
+	var point int64
+	for row.Next(){
+		var myPoint Point
+		if err := row.Scan(&myPoint.Point,&myPoint.Time); err != nil{
+			return 0,err
+		}
+		point += myPoint.Point
+	}
+	return point, nil
 }
 
 func SelectAllUserLIMIT100() []User {
