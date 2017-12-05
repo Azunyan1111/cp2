@@ -151,13 +151,13 @@ func UpdatePointSubById(id string, cp int64) error {
 }
 func SelectUserPointsById(id string) ([]Point, error) {
 	var myPoints []Point
-	row, err := MyDB.Query("SELECT myPoint FROM points ORDER BY ? DESC LIMIT 10;", id)
+	row, err := MyDB.Query("SELECT myPoint,datas data FROM points ORDER BY ? DESC LIMIT 10;", id)
 	if err != nil{
 		return myPoints, err
 	}
 	for row.Next(){
 		var myPoint Point
-		if err := row.Scan(&myPoint); err != nil{
+		if err := row.Scan(&myPoint.Point,&myPoint.Time); err != nil{
 
 		}
 		myPoints = append(myPoints, myPoint)
