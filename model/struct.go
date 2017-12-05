@@ -12,6 +12,11 @@ type User struct {
 	MyPoint     int64
 }
 
+type Point struct {
+	Point int64
+	Time string
+}
+
 type Error struct {
 	Status  int64  `json:"Status"`
 	Message string `json:"Message"`
@@ -22,7 +27,7 @@ type RequestJson struct {
 }
 type UserPointJson struct {
 	Status    int64 `json:"Status"`
-	Points []int64 `json:"Points"`
+	Points []Point `json:"Points"`
 }
 type TwitterResponse struct {
 	Token string

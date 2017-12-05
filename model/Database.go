@@ -73,7 +73,8 @@ func SelectUserDataById(id string) (User, error) {
 	return userData, nil
 }
 func SelectUserDataByTwitter(id int64) (User, error) {
-	if err := UpdateUserDataPoint(id);err != nil{
+	s := strconv.FormatInt(id, 64)
+	if err := UpdateUserDataPoint(s);err != nil{
 		return User{},err
 	}
 	var userData User
@@ -122,11 +123,11 @@ func UpdateUserDataPoint(id string)error{
 	if err != nil{
 		return err
 	}
-	var point int64
+	var point Point
 	for _,i := range points{
-		point += i
+		point.Point += i.Point
 	}
-	_, err = MyDB.Exec("update users set myPoint = ? where id = ?;", point, id)
+	_, err = MyDB.Exec("update users set myPoint = ? where id = ?;", point.Point, id)
 	if err != nil {
 		return err
 	}
@@ -148,14 +149,14 @@ func UpdatePointSubById(id string, cp int64) error {
 	}
 	return nil
 }
-func SelectUserPointsById(id string) ([]int64, error) {
-	var myPoints []int64
+func SelectUserPointsById(id string) ([]Point, error) {
+	var myPoints []Point
 	row, err := MyDB.Query("SELECT myPoint FROM points ORDER BY ? DESC LIMIT 10;", id)
 	if err != nil{
 		return myPoints, err
 	}
 	for row.Next(){
-		var myPoint int64
+		var myPoint Point
 		if err := row.Scan(&myPoint); err != nil{
 
 		}
