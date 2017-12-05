@@ -5,6 +5,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"os"
+	"strconv"
 )
 
 var MyDB *sql.DB
@@ -23,6 +24,13 @@ func InsertNewUserByTwitter(twitterId int64) error {
 		" VALUES(?, ?, ?, ?, ?, ?)", DefaultUser.UserName, DefaultUser.UserImage, DefaultUser.HomeImage,
 		DefaultUser.MoodMessage, twitterId, DefaultUser.MyPoint)
 	if err != nil {
+		return err
+	}
+	userData,err := SelectUserDataByTwitter(twitterId)
+	if err != nil{
+		return err
+	}
+	if err := UpdatePointAddByIdInt64(userData.Id,userData.MyPoint); err != nil{
 		return err
 	}
 	return nil
@@ -64,6 +72,18 @@ func SelectUserDataById(id string) (User, error) {
 	}
 	return userData, nil
 }
+func SelectUserDataByTwitter(id int64) (User, error) {
+	if err := UpdateUserDataPoint(id);err != nil{
+		return User{},err
+	}
+	var userData User
+	if err := MyDB.QueryRow("select id, userName, userImage, homeImage, moodMessage, "+
+		"myPoint from users where id = ?;", id).Scan(&userData.Id, &userData.UserName,
+		&userData.UserImage, &userData.HomeImage, &userData.MoodMessage, &userData.MyPoint); err != nil {
+		return User{}, err
+	}
+	return userData, nil
+}
 
 func SelectUserPointByTwitter(id int64) (int64, error) {
 	var myPoint int64
@@ -82,6 +102,14 @@ func SelectUserPointById(id string) (int64, error) {
 	return myPoint, nil
 }
 func UpdatePointAddById(id string, cp int64) error {
+	_, err := MyDB.Exec("INSERT INTO `points` (`userid`, `myPoint`) VALUES (?, ?);", cp, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdatePointAddByIdInt64(id int64, cp int64) error {
 	_, err := MyDB.Exec("INSERT INTO `points` (`userid`, `myPoint`) VALUES (?, ?);", cp, id)
 	if err != nil {
 		return err
