@@ -30,6 +30,8 @@ func main() {
 	e.GET("/login", contoroller.LoginHD())          // ログイン兼サインアップのHTML
 	e.GET("/user/:userId", contoroller.GetUserHD()) // プロフィール取得（ＧＥＴ）
 	e.PUT("/user/:userId", contoroller.SetUserHD()) // プロフィール更新（ＰＵＴ）
+
+	e.GET("/user/point/:userId", contoroller.GetUserPointsHD()) // ポイントの履歴を取得する
 	// ポイント
 	e.GET("/request", contoroller.RequestHD()) // ポイント請求ＵＲＬ＆ＱＲコード生成（ＰＯＳＴ）
 	e.GET("/payment", contoroller.PaymentHD()) // ポイント支払い

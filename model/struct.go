@@ -20,7 +20,10 @@ type RequestJson struct {
 	Url    string `json:"Url"`
 	QrCode string `json:"QrCode"`
 }
-
+type UserPointJson struct {
+	Status    int64 `json:"Status"`
+	Points []int64 `json:"Points"`
+}
 type TwitterResponse struct {
 	Token string
 	Secret string

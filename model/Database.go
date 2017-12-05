@@ -96,11 +96,26 @@ func UpdatePointSubByTwitter(twitterId int64, cp int64) error {
 }
 
 func UpdatePointSubById(id string, cp int64) error {
-	_, err := MyDB.Exec("update users set myPoint = myPoint - ? where id = ?;", cp, id)
+	_, err := MyDB.Exec("INSERT INTO `points` (`userid`, `myPoint`) VALUES (?, ?);", id, cp)
 	if err != nil {
 		return err
 	}
 	return nil
+}
+func SelectUserPointsById(id string) ([]int64, error) {
+	var myPoints []int64
+	row, err := MyDB.Query("SELECT myPoint FROM points ORDER BY ? DESC LIMIT 10;", id)
+	if err != nil{
+		return myPoints, err
+	}
+	for row.Next(){
+		var myPoint int64
+		if err := row.Scan(&myPoint); err != nil{
+
+		}
+		myPoints = append(myPoints, myPoint)
+	}
+	return myPoints, nil
 }
 
 func SelectAllUserLIMIT100() []User {
